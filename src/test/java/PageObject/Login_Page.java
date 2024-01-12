@@ -49,7 +49,6 @@ public class Login_Page {
 		loginButton.click();
 		wait.until(ExpectedConditions.visibilityOfAllElements(statusOfLoginToast));
 		String valueOfToast = statusOfLoginToast.getText();
-		System.out.println(valueOfToast);
 	}
 
 	public void inactiveUserLogin() throws InterruptedException {
