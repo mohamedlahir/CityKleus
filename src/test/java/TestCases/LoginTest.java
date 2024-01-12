@@ -53,9 +53,11 @@ public class LoginTest extends BaseClass {
 		Login_Page loginPage = new Login_Page(driver);
 		loginPage.login(wrongEmailAddress, adminPassword);
 	}
-	@Test(priority = 6, testName = "TC0007", description = "Login Functionality check inactive users (Existing user, Any login)")
+	@Test(priority = 6, enabled = true,testName = "TC007", description = "Login Functionality check inactive users (Existing user, Any login)")
 	public void loginTestForInactiveUsers() throws InterruptedException {
 		Login_Page loginPage = new Login_Page(driver);
-		loginPage.login(wrongEmailAddress, adminPassword);
+		loginPage.login(adminUserName, adminPassword);
+		loginPage.inactiveUserLogin();
 	}
+	
 }

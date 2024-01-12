@@ -1,8 +1,7 @@
 package PageObject;
 
-import static org.testng.Assert.assertFalse;
-
 import java.time.Duration;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.openqa.selenium.WebDriver;
@@ -12,7 +11,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
-import org.testng.Assert;
 
 public class Login_Page {
 
@@ -32,9 +30,12 @@ public class Login_Page {
 
 	@FindBy(xpath = "//span[@class='text-capitalize medium-inter-family']")
 	WebElement loginButton;
-	
-	@FindBy(xpath ="//div[@role='status']")
+
+	@FindBy(xpath = "//div[@role='status']")
 	WebElement statusOfLoginToast;
+
+	@FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[1]/nav/div[1]/div/div/div[2]/a[11]")
+	WebElement sideNavBar;
 
 	public void login(String username, String passwordtxt) {
 		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver).withTimeout(Duration.ofSeconds(10))
@@ -50,11 +51,12 @@ public class Login_Page {
 		String valueOfToast = statusOfLoginToast.getText();
 		System.out.println(valueOfToast);
 	}
-	
-	public void inactiveUserLogin() {
-		
-		
-		
-	}
 
+	public void inactiveUserLogin() throws InterruptedException {
+		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver).withTimeout(Duration.ofSeconds(10))
+				.pollingEvery(Duration.ofSeconds(2)).ignoring(NoSuchElementException.class);
+		wait.until(ExpectedConditions.visibilityOfAllElements(sideNavBar));
+		wait.until(ExpectedConditions.elementToBeClickable(sideNavBar));
+		sideNavBar.click();
+	}
 }
